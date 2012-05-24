@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -18,6 +19,7 @@ public class SampleParser extends Parser {
 
 	public SampleParser(File file) {
 		super(file);
+		samples=new ArrayList<Sample>();
 
 	}
 
@@ -30,6 +32,7 @@ public class SampleParser extends Parser {
 				String sampleString = input.nextLine();
 				String[] sampleStringParts = sampleString.split(" ");
 				Sample sample = generateSample(sampleStringParts);
+				samples.add(sample);
 			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
