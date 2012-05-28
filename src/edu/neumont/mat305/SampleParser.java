@@ -15,11 +15,15 @@ import javax.management.RuntimeErrorException;
 
 public class SampleParser extends Parser {
 
-	List<Sample> samples;
+	private List<Sample> samples;
+
+	public List<Sample> getSamples() {
+		return samples;
+	}
 
 	public SampleParser(File file) {
 		super(file);
-		samples=new ArrayList<Sample>();
+		samples = new ArrayList<Sample>();
 
 	}
 
@@ -42,9 +46,11 @@ public class SampleParser extends Parser {
 
 	private Sample generateSample(String[] parts) {
 		int employeeNumber = Integer.parseInt(parts[0]);
-		SimpleDateFormat formatter = new SimpleDateFormat("MMDDYYYY");
-		Date date=Calendar.getInstance().getTime();
+		Date date = Calendar.getInstance().getTime();
 		try {
+			SimpleDateFormat formatter = new SimpleDateFormat("Mddyyyy");
+			if(parts[1].length()==8)
+				formatter.applyPattern("MMddyyyy");
 			date = formatter.parse(parts[1]);
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
@@ -53,75 +59,80 @@ public class SampleParser extends Parser {
 		}
 		SampleType sampleType = getSampleType(parts[2]);
 		int jobCode = Integer.parseInt(parts[3]);
-		int leadLevel = -1;
-		int arsenicLevel=-1;
-		int cadmiumLevel=-1;
-		int hemoglobinLevel=-1;
-		int zincProtoporphyrinLevel=-1;
+		double leadLevel = -1;
+		double arsenicLevel = -1;
+		double cadmiumLevel = -1;
+		double hemoglobinLevel = -1;
+		double zincProtoporphyrinLevel = -1;
 
 		switch (Integer.parseInt(parts[4])) {
 		case 1:
-			leadLevel = Integer.parseInt(parts[5]);
+			leadLevel = Double.parseDouble(parts[5]);
 			break;
 		case 2:
-			cadmiumLevel = Integer.parseInt(parts[5]);
+			cadmiumLevel = Double.parseDouble(parts[5]);
 			break;
 		case 4:
-			arsenicLevel = Integer.parseInt(parts[5]);
+			arsenicLevel = Double.parseDouble(parts[5]);
 			break;
 		case 6:
-			hemoglobinLevel = Integer.parseInt(parts[5]);
+			hemoglobinLevel = Double.parseDouble(parts[5]);
 			break;
 		case 30:
-			zincProtoporphyrinLevel = Integer.parseInt(parts[5]);
+			zincProtoporphyrinLevel = Double.parseDouble(parts[5]);
 			break;
 		}
 
-		switch (Integer.parseInt(parts[6])) {
-		case 1:
-			leadLevel = Integer.parseInt(parts[7]);
-			break;
-		case 2:
-			cadmiumLevel = Integer.parseInt(parts[7]);
-			break;
-		case 4:
-			arsenicLevel = Integer.parseInt(parts[7]);
-			break;
-		case 6:
-			hemoglobinLevel = Integer.parseInt(parts[7]);
-			break;
-		case 30:
-			zincProtoporphyrinLevel = Integer.parseInt(parts[7]);
-			break;
+		if (parts.length>8) {
+			switch (Integer.parseInt(parts[6])) {
+			case 1:
+				leadLevel = Double.parseDouble(parts[7]);
+				break;
+			case 2:
+				cadmiumLevel = Double.parseDouble(parts[7]);
+				break;
+			case 4:
+				arsenicLevel = Double.parseDouble(parts[7]);
+				break;
+			case 6:
+				hemoglobinLevel = Double.parseDouble(parts[7]);
+				break;
+			case 30:
+				zincProtoporphyrinLevel = Double.parseDouble(parts[7]);
+				break;
+			}
+			if (parts.length>=10) {
+				switch (Integer.parseInt(parts[8])) {
+				case 1:
+					leadLevel = Double.parseDouble(parts[9]);
+					break;
+				case 2:
+					cadmiumLevel = Double.parseDouble(parts[9]);
+					break;
+				case 4:
+					arsenicLevel = Double.parseDouble(parts[9]);
+					break;
+				case 6:
+					hemoglobinLevel = Double.parseDouble(parts[9]);
+					break;
+				case 30:
+					zincProtoporphyrinLevel = Double.parseDouble(parts[9]);
+					break;
+				}
+			}
 		}
 
-		switch (Integer.parseInt(parts[8])) {
-		case 1:
-			leadLevel = Integer.parseInt(parts[9]);
-			break;
-		case 2:
-			cadmiumLevel = Integer.parseInt(parts[9]);
-			break;
-		case 4:
-			arsenicLevel = Integer.parseInt(parts[9]);
-			break;
-		case 6:
-			hemoglobinLevel = Integer.parseInt(parts[9]);
-			break;
-		case 30:
-			zincProtoporphyrinLevel = Integer.parseInt(parts[9]);
-			break;
-		}
-		
-		return new Sample(employeeNumber,date,sampleType,jobCode,leadLevel,arsenicLevel,cadmiumLevel,hemoglobinLevel,zincProtoporphyrinLevel);
+		return new Sample(employeeNumber, date, sampleType, jobCode, leadLevel,
+				arsenicLevel, cadmiumLevel, hemoglobinLevel,
+				zincProtoporphyrinLevel);
 
 	}
 
 	private SampleType getSampleType(String string) {
 		SampleType sampleType = null;
-		if (string.equals(SampleType.Blood)) {
+		if (string.equals(SampleType.Blood.getValue())) {
 			sampleType = SampleType.Blood;
-		} else if (string.equals(SampleType.Urine)) {
+		} else if (string.equals(SampleType.Urine.getValue())) {
 			sampleType = SampleType.Urine;
 		}
 		return sampleType;

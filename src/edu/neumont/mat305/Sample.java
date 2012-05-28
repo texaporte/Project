@@ -8,15 +8,15 @@ public class Sample {
 	private Date sampleDate;
 	private SampleType sampleType;
 	private int jobCode;
-	private int leadLevel;
-	private int arsenicLevel;
-	private int cadmiumLevel;
-	private int hemoglobinLevel;
-	private int zincpProtoporphyrinLevel;
+	private double leadLevel;
+	private double arsenicLevel;
+	private double cadmiumLevel;
+	private double hemoglobinLevel;
+	private double zincpProtoporphyrinLevel;
 
 	Sample(int employeeNumber, Date sampleDate, SampleType sampleType, int jobCode,
-			int leadLevel, int arsenicLevel, int cadmiumLevel,
-			int hemoglobinLevel, int zincpProtoporphyrinLevel) {
+			double leadLevel, double arsenicLevel, double cadmiumLevel,
+			double hemoglobinLevel, double zincpProtoporphyrinLevel) {
 		setEmployeeNumber(employeeNumber);
 		setSampleDate(sampleDate);
 		setSampleType(sampleType);
@@ -48,23 +48,23 @@ public class Sample {
 		this.jobCode = jobCode;
 	}
 
-	public int getLeadLevel() {
+	public double getLeadLevel() {
 		return leadLevel;
 	}
 
-	public int getArsenicLevel() {
+	public double getArsenicLevel() {
 		return arsenicLevel;
 	}
 
-	public int getCadmiumLevel() {
+	public double getCadmiumLevel() {
 		return cadmiumLevel;
 	}
 
-	public int getHemoglobinLevel() {
+	public double getHemoglobinLevel() {
 		return hemoglobinLevel;
 	}
 
-	public int getZincpProtoporphyrinLevel() {
+	public double getZincpProtoporphyrinLevel() {
 		return zincpProtoporphyrinLevel;
 	}
 
@@ -80,23 +80,23 @@ public class Sample {
 		this.sampleType = sampleType;
 	}
 
-	private void setLeadLevel(int leadLevel) {
-		this.leadLevel = leadLevel;
+	private void setLeadLevel(double leadLevel2) {
+		this.leadLevel = leadLevel2;
 	}
 
-	private void setArsenicLevel(int arsenicLevel) {
+	private void setArsenicLevel(double arsenicLevel) {
 		this.arsenicLevel = arsenicLevel;
 	}
 
-	private void setCadmiumLevel(int cadmiumLevel) {
+	private void setCadmiumLevel(double cadmiumLevel) {
 		this.cadmiumLevel = cadmiumLevel;
 	}
 
-	private void setHemoglobinLevel(int hemoglobinLevel) {
+	private void setHemoglobinLevel(double hemoglobinLevel) {
 		this.hemoglobinLevel = hemoglobinLevel;
 	}
 
-	private void setZincpProtoporphyrinLevel(int zincpProtoporphyrinLevel) {
+	private void setZincpProtoporphyrinLevel(double zincpProtoporphyrinLevel) {
 		this.zincpProtoporphyrinLevel = zincpProtoporphyrinLevel;
 	}
 
